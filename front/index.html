@@ -2,86 +2,95 @@
 <html>
 
 <head>
-  <title>Допомога Бучанський район</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <title>Допомога Бучанський район</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css"/>
+    <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
 </head>
 <style>
-  table,
-  th,
-  td {
-    border: 1px solid black;
-  }
+    .container {
+        height: auto;
+        overflow: hidden;
+    }
 
-  table {
-    width: 50%;
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-  }
+    .right {
+        background: #4CAF50;
+    }
 
-  .container {
-    height: auto;
-    overflow: hidden;
-  }
-
-  .right {
-    width: 100%;
-    float: center;
-    background: #aafed6;
-  }
-
-  .left {
-    float: none;
-    background: #e8f6fe;
-    width: auto;
-    overflow: hidden;
-  }
+    .left div {
+        background: #e8f6fe;
+    }
+    .center {
+        text-align: center;
+    }
 </style>
 
 <body>
-  <div class="container">
     <div class="right">
-      <h3>Допомога_Бучанський район</h3>
-      <h4>Телефони</h4>
-      <h4>Депутат ГСР Вероніка Максим‘юк +380 (68) 644 43 82</h4>
-      <h4>Олександра +380 (98) 037 79 25</h4>
-      <h4>Альона +380 (98) 912 46 58</h4>
-    </div>
-    <div class="left">
-      <h1>Додати інформацію про людину:</h1>
-      <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="fname">Ім'я:</label><br>
-        <input type="text" id="fname" name="fname" required><br>
-        <label for="lname">Прізвище:</label><br>
-        <input type="text" id="lname" name="lname" required><br>
-        <label for="mname">По батькові:</label><br>
-        <input type="text" id="mname" name="mname"><br>
-        <label for="phone_numbers">Номера телефонів через пробіл:</label><br>
-        <input type="text" id="phone_numbers" name="phone_numbers"><br>
-        <label for="w3review">Додаткова інформація:</label><br>
-        <textarea id="additionaltext" name="additionaltext" rows="4" cols="50"></textarea><br><br>
-        <label>Виберіть фото людини:</label>
-        <input type="file" name="recfile">
-        <div class="btn-block">
-          <button type="submit" href="/">Сохранить</button>
+        <div class="mui-container">
+            <h3 class="center">Допомога_Бучанський район</h3>
+            <h4>Телефони</h4>
+            <ul class="mui-list--unstyled">
+                <li><h4>Депутат ГСР Вероніка Максим‘юк +380 (68) 644 43 82</h4></li>
+                <li><h4>Олександра +380 (98) 037 79 25</h4></li>
+                <li><h4>Альона +380 (98) 912 46 58</h4></li>
+            </ul>
         </div>
-      </form>
     </div>
-  </div>
-  <br>
-  <br>
-  <hr>
-  <table id="table">
-    <tr>
-      <th>Фото</th>
-      <th>Повне ім'я</th>
-      <th>Номера телефонів</th>
-      <th>Додаткова інформація</th>
-    </tr>
-  </table>
+    <br />
+    <div class="container">
+    <div class="left">
+        <div class="mui-container mui-panel">
+            <h1>Додати інформацію про людину:</h1>
+            <form action="/upload" method="post" enctype="multipart/form-data" class="mui-form">
+                <div class="mui-textfield">
+                    <input type="text" id="fname" name="fname" required>
+                    <label for="fname">Ім'я:</label>
+                </div>
+                <div class="mui-textfield">
+                    <input type="text" id="lname" name="lname" required>
+                    <label for="lname">Прізвище:</label>
+                </div>
+                <div class="mui-textfield">
+                    <input type="text" id="mname" name="mname">
+                    <label for="mname">По батькові:</label>
+                </div>
+                <div class="mui-textfield">
+                    <input type="text" id="phone_numbers" name="phone_numbers">
+                    <label for="phone_numbers">Номера телефонів через пробіл:</label>
+                </div>
+                <div class="mui-textfield">
+                    <textarea id="additionaltext" name="additionaltext" rows="4" cols="50"></textarea>
+                    <label for="w3review">Додаткова інформація:</label>
+                </div>
+                <div class="mui-textfield">
+                    <input type="file" name="recfile">
+                    <label>Виберіть фото людини:</label>
+                </div>
+                <div class="btn-block">
+                    <button class="mui-btn mui-btn--raised" type="submit" href="/">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="mui-container mui-panel">
+    <table id="table" class="mui-table">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Повне ім'я</th>
+                <th>Номера телефонів</th>
+                <th>Додаткова інформація</th>
+            </tr>
+        </thead>
+    </table>
+</div>
   <script src="script.js">
-  </script>
+</script>
 </body>
 
 </html>
