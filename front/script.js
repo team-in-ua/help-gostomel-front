@@ -5,8 +5,9 @@ function downloadData() {
 };
 
 function addDataTotable(data) {
+    const table = document.getElementById('tbody');
+
     data.forEach(element => {
-        const table = document.getElementById('table');
         const rowCount = table.rows.length;
         const row = table.insertRow(rowCount);
 
