@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const { uuid } = require('uuidv4');
+const { Op } = require('sequelize');
 const UserSchema = require('../data_db/user_data_db');
 const LOLKEK = process.env.SECRET;
 const LOLKEK4EBUREK = process.env.ACCESS;
@@ -14,7 +15,7 @@ const uploadUser = async (req, res) => {
         const user = await UserSchema.create(data);
     };
     const { fname, lname, mname, phone_numbers, additionaltext } = req.body;
-    if(req.file) {
+    if (req.file) {
         const img = fs.readFileSync(req.file.path);
         const params = {
             Bucket: SUBDATA,
@@ -54,7 +55,55 @@ const retrieveData = async (req, res) => {
     return res.json(users);
 }
 
+const search = async (req, res) => {
+    const { searchPattern } = req.body;
+    if(!searchPattern) return res.status(400);
+    const queryClause = searchPattern.split(' ');
+    let users;
+    if(queryClause.length === 1) {
+        users = await UserSchema.findAll(
+            {
+                where:
+                {
+                    [Op.or]: {
+                        first_name: {
+                            [Op.like]: `%${queryClause[0]}%`
+                        },
+                        last_name: {
+                            [Op.like]: `%${queryClause[0]}%`
+                        },
+                    }
+                }
+            }
+        );
+    } else if (queryClause.length > 1) {
+        users = await UserSchema.findAll(
+            {
+                where:
+                {
+                    [Op.or]: {
+                        first_name: {
+                            [Op.like]: `%${queryClause[0]}%`
+                        },
+                        first_name: {
+                            [Op.like]: `%${queryClause[1]}%`
+                        },
+                        last_name: {
+                            [Op.like]: `%${queryClause[0]}%`
+                        },
+                        last_name: {
+                            [Op.like]: `%${queryClause[1]}%`
+                        }
+                    }
+                }
+            }
+        );
+    }
+    return res.json(users);
+}
+
 module.exports = {
     uploadUser,
-    retrieveData
+    retrieveData,
+    search
 }

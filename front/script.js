@@ -6,7 +6,7 @@ function downloadData() {
 
 function addDataTotable(data) {
     const table = document.getElementById('tbody');
-
+    if(table.rows.length) $("#tbody").empty();
     data.forEach(element => {
         const rowCount = table.rows.length;
         const row = table.insertRow(rowCount);
@@ -28,4 +28,20 @@ function addDataTotable(data) {
     });
 }
 
+function search(event) {
+    if(!event || !event.target || event.target.value === '') return downloadData();
+    fetch(`${window.location.origin}/search`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({searchPattern: event.target.value})
+    })
+    .then(data => data.json())
+    .then(addDataTotable)
+}
+
 window.onload = downloadData;
+
+const search_input = document.getElementById('search-input');
+search_input.addEventListener('input', search);

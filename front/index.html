@@ -9,6 +9,7 @@
     <!-- load MUI -->
     <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css"/>
     <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
     .container {
@@ -78,6 +79,10 @@
     </div>
 </div>
 <div class="mui-container mui-panel">
+    <div class="mui-textfield">
+        <input id="search-input" type="text" onchange="search()">
+        <label>Введіть ім'я та прізвище для пошуку людини:</label>
+    </div>
     <table id="table" class="mui-table mui-table--bordered">
         <thead>
             <tr>
