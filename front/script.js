@@ -41,6 +41,93 @@ function search(event) {
     .then(addDataTotable)
 }
 
+function activateModalPeopleInfo() {
+      const modalContent = `<h2>Залиште інформацію про людину</h2>
+      <textarea id="modal" type="text" rows="4" cols="50"></textarea>
+      <button class="mui-btn mui-btn--flat" onclick="mui.overlay('off')">Відміна</button>
+      <button class="mui-btn mui-btn--primary" onclick="sendEmail('/people-info')">Відправити</button>`;
+      const modalEl = document.createElement('div');
+      modalEl.className = "mui-textfield";
+      modalEl.style.width = '400px';
+      modalEl.style.height = '228px';
+      modalEl.style.margin = '100px auto';
+      modalEl.style.paddingLeft = "10px";
+      modalEl.style.paddingRight = "10px";
+      modalEl.style.textAlign = "center";
+      modalEl.style.backgroundColor = '#fff';
+      modalEl.innerHTML = modalContent.trim();
+      mui.overlay('on', modalEl);
+}
+
+function activateModalHelpNeeded() {
+    const modalContent = `<h2>Залиште інформацію про те, яка потрібна гуманітарна допомога</h2>
+    <textarea id="modal" type="text" rows="4" cols="50"></textarea>
+    <button class="mui-btn mui-btn--flat" onclick="mui.overlay('off')">Відміна</button>
+    <button class="mui-btn mui-btn--primary" onclick="sendEmail('/help-needed')">Відправити</button>`;
+    const modalEl = document.createElement('div');
+    modalEl.className = "mui-textfield";
+    modalEl.style.width = '400px';
+    modalEl.style.height = '260px';
+    modalEl.style.margin = '100px auto';
+    modalEl.style.paddingLeft = "10px";
+    modalEl.style.paddingRight = "10px";
+    modalEl.style.textAlign = "center";
+    modalEl.style.backgroundColor = '#fff';
+    modalEl.innerHTML = modalContent.trim();
+    mui.overlay('on', modalEl);
+}
+
+function sendEmail(url) {
+    const text = $("textarea#modal").val();
+    if(!text) return;
+    mui.overlay('off');
+    fetch(`${window.location.origin}${url}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text })
+    }).then(data => {
+        const modalContent = `<h2>Дякуємо! Ваше повідомлення успішно доставлено!</h2>
+        <h2>Воно буде оброблено найближчим часом!</h2>
+        <button class="mui-btn mui-btn--flat" onclick="mui.overlay('off')">Ок</button>`;
+        const modalEl = document.createElement('div');
+        modalEl.className = "mui-textfield";
+        modalEl.style.width = '400px';
+        modalEl.style.height = '228px';
+        modalEl.style.margin = '100px auto';
+        modalEl.style.paddingLeft = "10px";
+        modalEl.style.paddingRight = "10px";
+        modalEl.style.textAlign = "center";
+        modalEl.style.backgroundColor = '#fff';
+        modalEl.innerHTML = modalContent.trim();
+        mui.overlay('on', modalEl);
+        setTimeout(() => {
+            if($("textarea#modal").length === 0)
+                mui.overlay('off');
+        }, 5000);
+    }).catch(err => {
+        const modalContent = `<h2>Ваше повідомлення не відвправлено!</h2>
+        <h2>Спробуйте ще раз!</h2>
+        <button class="mui-btn mui-btn--flat" onclick="mui.overlay('off')">Ок</button>`;
+        const modalEl = document.createElement('div');
+        modalEl.className = "mui-textfield";
+        modalEl.style.width = '400px';
+        modalEl.style.height = '228px';
+        modalEl.style.margin = '100px auto';
+        modalEl.style.paddingLeft = "10px";
+        modalEl.style.paddingRight = "10px";
+        modalEl.style.textAlign = "center";
+        modalEl.style.backgroundColor = '#fff';
+        modalEl.innerHTML = modalContent.trim();
+        mui.overlay('on', modalEl);
+        setTimeout(() => {
+            if($("textarea#modal").length === 0)
+                mui.overlay('off');
+        }, 5000);
+    });
+}
+
 window.onload = downloadData;
 
 const search_input = document.getElementById('search-input');
