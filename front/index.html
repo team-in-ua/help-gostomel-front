@@ -46,7 +46,7 @@
     <div class="left">
         <div class="mui-container mui-panel">
             <h1>Додати інформацію про людину:</h1>
-            <form action="/upload" method="post" enctype="multipart/form-data" class="mui-form">
+            <form id="formU" action="/upload" method="post" enctype="multipart/form-data" class="mui-form">
                 <div class="mui-textfield">
                     <input type="text" id="fname" name="fname" required>
                     <label for="fname">Ім'я:</label>
@@ -72,7 +72,7 @@
                     <label>Виберіть фото людини:</label>
                 </div>
                 <div class="btn-block">
-                    <button class="mui-btn mui-btn--raised" type="submit" href="/">Сохранить</button>
+                    <button class="mui-btn mui-btn--raised" onclick="submitUserForm(this)" type="submit" href="/">Сохранить</button>
                 </div>
             </form>
         </div>

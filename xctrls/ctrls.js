@@ -13,6 +13,7 @@ const s3 = new AWS.S3({
 const uploadUser = async (req, res) => {
     const saveUserToDb = async (data) => {
         const user = await UserSchema.create(data);
+        return res.redirect('/');
     };
     const { fname, lname, mname, phone_numbers, additionaltext } = req.body;
     if (req.file) {
@@ -37,17 +38,16 @@ const uploadUser = async (req, res) => {
                 picture: data.Location
             });
         });
-        return res.redirect('/');
+    } else {
+        saveUserToDb({
+            first_name: fname,
+            last_name: lname,
+            middle_name: mname,
+            phone_numbers,
+            additionaltext,
+            picture: null
+        });
     }
-    saveUserToDb({
-        first_name: fname,
-        last_name: lname,
-        middle_name: mname,
-        phone_numbers,
-        additionaltext,
-        picture: null
-    });
-    return res.redirect('/');
 }
 
 const retrieveData = async (req, res) => {

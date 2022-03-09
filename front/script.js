@@ -95,6 +95,19 @@ function activateModalHelpNeeded() {
     mui.overlay('on', modalEl);
 }
 
+function submitUserForm(element) {
+    const { form } = element;
+    if(
+        !form ||
+        !form.fname ||
+        !form.fname.value ||
+        !form.lname ||
+        !form.lname.value
+    ) return;
+    element.disabled=true;
+    element.form.submit();
+}
+
 function sendEmail(url) {
     const text = $("textarea#text").val();
     const phone_number = $("input#phone_number").val();
