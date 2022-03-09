@@ -31,14 +31,19 @@ const sendPeopleInfo = (req, res) => {
 };
 
 const sendHelpNeeded = (req, res) => {
-    const { text } = req.body;
-    if (!text) return res.status(400).json('Text couldnt be empty');
+    const { text , phone_number, address } = req.body;
+    if (!text && !phone_number && !address) return res.status(400).json('Data couldnt be empty');
     const SUBJECT = `Необходима помощь`;
+    const messageBody = `<h3>Номер телефону відправника:</h3> <h4>${phone_number}</h4>
+    <hr>
+    <h3>Адреса для відправки:</h3><h4>${address}</h4>
+    <hr>
+    <h3>Повідомлення:</h3><h4>${text}</h4>`;
     const mailOptions = {
         from: FROM,
         to: TO,
         subject: SUBJECT,
-        html: text
+        html: messageBody
     };
     transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
